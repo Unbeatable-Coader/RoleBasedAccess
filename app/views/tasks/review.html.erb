@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task List</title>
+</head>
+<body>
+<%= link_to 'Back to Task List', tasks_path, class: 'btn btn-primary float-end' %>
+<div class="row">
+  <% @reviews.each do |review| %>
+    <div class="col-md-4">
+      <% @color= review.color %>
+      <div class="task-card border border-right-0 rounded" style="background-color: <%= @color %>; padding: 10px; margin: 10px;" id="<%= review.id %>">
+        <h2>Task Details</h2>
+        <p><strong>Task ID:</strong> <%= review.id %></p>
+        <p><strong>Title:</strong> <%= review.title %></p>
+        <p><strong>Description:</strong> <%= review.description %></p>
+        <p><strong>Assign TO:</strong> <%= review.assign_to %></p>
+        <p><strong>Status:</strong> <%= review.status %></p>
+        <% if @current_user.usertype == "manager" || @current_user.usertype == "admin"%>
+          <%= link_to 'Pending', update_review_path(review.id, status: 'pending', color: 'lightcoral'), method: :patch, class: 'btn btn-danger', remote: true %>
+          <%= link_to 'Mark as Done', update_review_path(review.id, status: 'done', color: 'lightgreen'), method: :patch, class: 'btn btn-success float-end', remote: true %>
+
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+</body>
+</html>

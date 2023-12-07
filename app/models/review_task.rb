@@ -1,0 +1,2 @@
+class ReviewTask < ApplicationRecord
+end

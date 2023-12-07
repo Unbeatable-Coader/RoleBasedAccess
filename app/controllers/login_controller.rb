@@ -15,7 +15,7 @@ class LoginController < ApplicationController
       puts "token = #{token}"
       session[:user_token] = token
       puts "session token = #{session[:user_token]}"
-      redirect_to dashboard_path
+      redirect_to tasks_path
     else
       puts "Validation errors: #{@user.errors.full_messages}"
       flash[:alert] = @user.errors.full_messages
@@ -25,6 +25,11 @@ class LoginController < ApplicationController
 
   def Dashboard
 
+  end
+
+  def logout
+    session.delete(:user_token)
+    redirect_to login_path
   end
 
   private

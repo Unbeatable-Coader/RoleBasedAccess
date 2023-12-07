@@ -5,28 +5,12 @@ class User < ApplicationRecord
 
   has_many :tasks
   has_many :managed_tasks, class_name: 'Task', foreign_key: 'manager_id'
-  after_create :assign_default_role
-
-  private
-
-  def assign_default_role
-    add_role(:employee)
-  end
-
-  has_one :admin, dependent: :destroy
-  has_one :manager, dependent: :destroy
-  has_one :employee, dependent: :destroy
 
 
-  def admin?
-    admin.present?
-  end
+  has_many :admin, dependent: :destroy
+  has_many :manager, dependent: :destroy
+  has_many :employee, dependent: :destroy
 
-  def manager?
-    manager.present?
-  end
 
-  def employee?
-    employee.present?
-  end
+
 end

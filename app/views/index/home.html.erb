@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+        .dropdown-menu{
+            left: -75px !important;
+        }
+        .nav-item{
+            top: -24px !important;
+        }
+        .nav-link{
+            font-size: 22px;
+        }
+        .navbar-brand{
+            font-size: 32px;
+        }
+    </style>
+  </head>
+
+  <body>
+    
+            <nav class="navbar navbar-expand navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand">Task Management</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/user">Sign-up</a>
+                </li>
+            </ul>
+            <% if flash.any? %>
+                <% flash.each do |type, msg| %>
+                    <div class="alert alert-<%= type %> text-center">
+                        <%= msg %>
+                    </div>
+                <% end %>
+            <% end %>
+                
+                
+                <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="/assets/profile2.png" style="width: 30px; height: 30px; border-radius: 50%;">
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/userDetail">Profile</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="logout">Logout</a>
+                </div>
+                </li>
+            
+            </div>
+        </div>
+        </nav>
+
+        <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+            <img src="/assets/img1.png" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+            <img src="/assets/img4.png" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+            <img src="/assets/img3.png" class="d-block w-100" alt="...">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+        </div>
+  </body>
+</html>
+
+
+
+

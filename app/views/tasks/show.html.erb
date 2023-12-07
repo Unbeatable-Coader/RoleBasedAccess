@@ -1,1 +1,79 @@
-<%= link_to '+ Create Task', newTask_path, class: 'btn btn-primary' %>
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <style>
+      .nav-item{
+        margin-top: -18px;
+      }
+    </style>
+  </head>
+
+  <body>
+    
+<% if flash.any? %>
+  <% flash.each do |type, msg| %>
+    <div class="alert alert-<%= type %> text-center">
+      <%= msg %>
+    </div>
+  <% end %>
+<% end %>
+
+<% if @current_user.usertype == "employee" %>
+  <%= link_to 'Task status', status_path, class: 'btn btn-warning mt-3 ' %>
+<% else %>
+  <%= link_to 'Pending Reviews', review_path, class: 'btn btn-warning mt-3 ' %>
+    <%= link_to '+ Create Task', newTask_path, class: 'btn btn-dark mt-3 float-end' %>
+<% end %>
+
+              <li class="nav-item dropdown float-end">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="/assets/profile2.png" style="width: 30px; height: 30px; border-radius: 50%;">
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/userDetail">Profile</a>
+                    <a class="dropdown-item" href="#">Settings</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="logout">Logout</a>
+                </div>
+              </li>
+<h1 style="text-align:center">All Tasks</h1></br>
+
+<div class="row">
+  <% @tasks.each do |task| %>
+    <div class="col-md-4 ">
+      <div class="card mb-4 ">
+        <div class="card-body">
+          <h2 class="card-title"><%= task.title %></h2>
+          <p class="card-text"><%= task.description %></p>
+          <% if task.assign_to == "" %>
+            <p class="card-text">Assigned to: Un-assigned </p>
+
+          <% else %>
+            <p class="card-text">Assigned to: <%= task.assign_to %></p>
+          <% end %>
+
+          <% if session[:user_token].present? %>
+            <%= link_to 'View Task', tasks_path(task.id), class: 'btn btn-primary', id: "viewTaskButton_#{task.id}" %>
+            <% if @current_user.usertype == "employee"%>
+              <% if task.assign_to == ""%>
+                <b class="float-end bg-warning">Can't mark as review</b>
+              <% else %>
+                <%= link_to 'Review Task', review_path(task_id: task.id), class: 'btn btn-info float-end' %>
+              <%end%>
+            <% end %>
+          <% else %>
+            <p class="text-warning">Login to view this task.</p>
+          <% end %>
+          </br>
+        </div>
+
+      </div>
+    </div>
+  <% end %>
+</div>
+
+  </body>
+</html>
+
+
